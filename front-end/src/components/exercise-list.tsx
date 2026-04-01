@@ -1,6 +1,6 @@
 import type React from "react";
 
-import type { Exercise, Machine } from "@/types/fitness";
+import type { Exercise, Machine } from "../types/fitness";
 
 interface ExerciseListProperties {
     machine: Machine;

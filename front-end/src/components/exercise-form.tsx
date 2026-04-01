@@ -1,8 +1,8 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 
-import { getExerciseMax, getTodaysRecords, recordExercise } from "@/services/mock-api.ts";
-import type { Exercise, ExerciseMax, ExerciseRecord, Machine } from "@/types/fitness.ts";
+import { getExerciseMax, getTodaysRecords, recordExercise } from "../services/mock-api";
+import type { Exercise, ExerciseMax, ExerciseRecord, Machine } from "../types/fitness";
 
 interface ExerciseFormProperties {
     machine: Machine;
@@ -15,13 +15,13 @@ function formatTime(isoString: string): string {
 }
 
 export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exercise, onBack }) => {
-    const [lbs, setLbs] = useState<number>(0);
-    const [sets, setSets] = useState<number>(0);
-    const [reps, setReps] = useState<number>(0);
+    const [lbs, setLbs] = useState(0);
+    const [sets, setSets] = useState(0);
+    const [reps, setReps] = useState(0);
     const [max, setMax] = useState<ExerciseMax | null>(null);
     const [todaysRecords, setTodaysRecords] = useState<ExerciseRecord[]>([]);
-    const [saving, setSaving] = useState<boolean>(false);
-    const [saveCount, setSaveCount] = useState<number>(0);
+    const [saving, setSaving] = useState(false);
+    const [saveCount, setSaveCount] = useState(0);
 
     useEffect(() => {
         const controller = new AbortController();
@@ -58,7 +58,7 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
         };
     }, [exercise.id]);
 
-    const handleSave = async () => {
+    const handleSave = async (): Promise<void> => {
         if (lbs <= 0 || sets <= 0 || reps <= 0 || saving) {
             return;
         }

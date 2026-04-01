@@ -1,4 +1,4 @@
-import type { Exercise, ExerciseMax, ExerciseRecord, Machine } from "@/types/fitness";
+import type { Exercise, ExerciseMax, ExerciseRecord, Machine } from "../types/fitness";
 
 const MACHINES: Machine[] = [
     { id: "leg-press", name: "Leg Press" },
@@ -41,6 +41,7 @@ function getStoredRecords(): ExerciseRecord[] {
     if (raw === null) {
         return [];
     }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- API is trusted
     return JSON.parse(raw) as ExerciseRecord[];
 }
 
@@ -48,19 +49,19 @@ function persistRecords(records: ExerciseRecord[]): void {
     localStorage.setItem(RECORDS_KEY, JSON.stringify(records));
 }
 
-// eslint-disable-next-line require-await, @typescript-eslint/require-await
+// eslint-disable-next-line require-await, @typescript-eslint/require-await -- MOCK
 export async function getMachines(): Promise<Machine[]> {
     return [...MACHINES];
 }
 
-// eslint-disable-next-line require-await, @typescript-eslint/require-await
+// eslint-disable-next-line require-await, @typescript-eslint/require-await -- MOCK
 export async function getExercises(machineId: string): Promise<Exercise[]> {
     return EXERCISES.filter((exercise) => {
         return exercise.machineId === machineId;
     });
 }
 
-// eslint-disable-next-line require-await, @typescript-eslint/require-await
+// eslint-disable-next-line require-await, @typescript-eslint/require-await -- MOCK
 export async function getExerciseMax(exerciseId: string): Promise<ExerciseMax | null> {
     const records = getStoredRecords().filter((r) => {
         return r.exerciseId === exerciseId;
@@ -87,7 +88,7 @@ export async function getExerciseMax(exerciseId: string): Promise<ExerciseMax | 
     };
 }
 
-// eslint-disable-next-line require-await, @typescript-eslint/require-await
+// eslint-disable-next-line require-await, @typescript-eslint/require-await -- MOCK
 export async function getTodaysRecords(exerciseId: string): Promise<ExerciseRecord[]> {
     const today = new Date().toDateString();
     return getStoredRecords()
@@ -99,7 +100,7 @@ export async function getTodaysRecords(exerciseId: string): Promise<ExerciseReco
         });
 }
 
-// eslint-disable-next-line require-await, @typescript-eslint/require-await
+// eslint-disable-next-line require-await, @typescript-eslint/require-await -- MOCK
 export async function recordExercise(
     exerciseId: string,
     lbs: number,

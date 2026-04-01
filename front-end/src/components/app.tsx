@@ -1,11 +1,13 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 
-import { ExerciseForm } from "@/components/exercise-form.tsx";
-import { ExerciseList } from "@/components/exercise-list.tsx";
-import { MachineList } from "@/components/machine-list.tsx";
-import { getExercises, getMachines } from "@/services/mock-api.ts";
-import type { Exercise, Machine } from "@/types/fitness.tsx";
+import { getExercises, getMachines } from "../services/mock-api";
+
+import type { Exercise, Machine } from "../types/fitness";
+
+import { ExerciseForm } from "./exercise-form";
+import { ExerciseList } from "./exercise-list";
+import { MachineList } from "./machine-list";
 
 type AppView =
     | { kind: "exercises"; machine: Machine }
@@ -21,20 +23,21 @@ export const App: React.FC = () => {
         void getMachines().then(setMachines);
     }, []);
 
-    const handleSelectMachine = (machine: Machine) => {
+    const handleSelectMachine = (machine: Machine): void => {
         void getExercises(machine.id).then((list) => {
             setExercises(list);
             setView({ kind: "exercises", machine });
         });
     };
 
-    const handleSelectExercise = (exercise: Exercise) => {
+    const handleSelectExercise = (exercise: Exercise): void => {
         if (view.kind !== "exercises") {
             return;
         }
         setView({ kind: "form", machine: view.machine, exercise });
     };
 
+    // eslint-disable-next-line @typescript-eslint/init-declarations -- initialized below
     let content: React.ReactNode;
 
     if (view.kind === "machines") {
@@ -53,6 +56,7 @@ export const App: React.FC = () => {
         );
     } else {
         const { machine, exercise } = view;
+
         content = (
             <ExerciseForm
                 machine={machine}

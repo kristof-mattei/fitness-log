@@ -1,6 +1,6 @@
 import type React from "react";
 
-import type { Machine } from "@/types/fitness";
+import type { Machine } from "../types/fitness";
 
 interface MachineListProperties {
     machines: Machine[];
