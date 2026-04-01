@@ -26,7 +26,7 @@
             "cargo": {
                 "args": ["run", "--bin=fitness-log"]
             },
-            "args": [],
+            "args": [""],
             "env": {
                 "RUST_BACKTRACE": "1"
             },
@@ -38,8 +38,9 @@
             "type": "lldb",
             "request": "launch",
             "cargo": {
-                "args": ["test", "--bin=fitness-log"]
+                "args": ["test", "--no-run", "--bin=fitness-log"]
             },
+            "args": [],
             "env": {
                 "RUST_BACKTRACE": "1",
                 "RUST_LOG": "DEBUG,fitness_log=TRACE,tower_http::trace=TRACE"
@@ -52,8 +53,9 @@
             "type": "lldb",
             "request": "launch",
             "cargo": {
-                "args": ["test", "--test=integration_tests"]
+                "args": ["test", "--no-run", "--test=integration_tests"]
             },
+            "args": [],
             "env": {
                 "RUST_BACKTRACE": "1",
                 "RUST_LOG": "DEBUG,fitness_log=TRACE,tower_http::trace=TRACE"

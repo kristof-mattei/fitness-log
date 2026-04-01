@@ -68,8 +68,8 @@ const sharedRules = {
         "ignorePackages",
         {
             json: "always",
-            ts: "always",
-            tsx: "always",
+            ts: "never",
+            tsx: "never",
         },
     ],
     "import-x/newline-after-import": ["error"],
@@ -159,7 +159,6 @@ export default defineConfig(
         },
     },
     {
-        ...love,
         files: ["**/*.ts", "**/*.tsx"],
         ignores: ["**/*.mjs"],
         languageOptions: {
@@ -179,6 +178,7 @@ export default defineConfig(
             perfectionist,
         },
         extends: [
+            love,
             tseslintConfigs.strictTypeChecked,
             tseslintConfigs.recommendedTypeChecked,
             tseslintConfigs.stylisticTypeChecked,

@@ -1,5 +1,8 @@
 {
     "debug.internalConsoleOptions": "neverOpen",
+    "js/ts.preferences.importModuleSpecifier": "relative",
+    "js/ts.preferences.importModuleSpecifierEnding": "minimal",
+    "js/ts.tsdk.path": "node_modules/typescript/lib",
     "lldb.launch.expressions": "simple",
     "lldb.launch.terminal": "integrated",
     "prettier.configPath": "./prettier.config.mjs",
@@ -13,7 +16,7 @@
         "RUST_LOG": "DEBUG,fitness_log=TRACE,tower_http::trace=TRACE"
     },
     "rust-analyzer.rustfmt.extraArgs": ["+nightly"],
-    "typescript.preferences.importModuleSpecifier": "non-relative",
-    "typescript.preferences.importModuleSpecifierEnding": "js",
-    "typescript.tsdk": "node_modules/typescript/lib"
+    "rust-analyzer.server.extraEnv": {
+        // "SQLX_OFFLINE": "true",
+    }
 }
