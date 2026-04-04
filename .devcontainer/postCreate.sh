@@ -5,6 +5,6 @@ rustc --version
 rustup toolchain add nightly
 rustup component add --toolchain nightly rustfmt
 
-# cargo install sqlx-cli --no-default-features --features postgres
+cargo install sqlx-cli --no-default-features --features postgres
 
-# cargo sqlx migrate run --source ./crates/fitness-log/migrations
+cargo sqlx migrate run --source ./crates/fitness-log/migrations
