@@ -1,5 +1,6 @@
-import type React from "react";
 import { useEffect, useState } from "react";
+import type React from "react";
+import type { ReactElement } from "react";
 
 import { getExercises, getMachines } from "../services/mock-api";
 
@@ -37,43 +38,47 @@ export const App: React.FC = () => {
         setView({ kind: "form", machine: view.machine, exercise });
     };
 
-    // eslint-disable-next-line @typescript-eslint/init-declarations -- initialized below
-    let content: React.ReactNode;
+    const renderContent = (): ReactElement => {
+        switch (view.kind) {
+            case "machines": {
+                return (
+                    <MachineList
+                        machines={machines}
+                        onSelect={(machine) => {
+                            void handleSelectMachine(machine);
+                        }}
+                    />
+                );
+            }
+            case "exercises": {
+                const { machine } = view;
 
-    if (view.kind === "machines") {
-        content = (
-            <MachineList
-                machines={machines}
-                onSelect={(machine) => {
-                    void handleSelectMachine(machine);
-                }}
-            />
-        );
-    } else if (view.kind === "exercises") {
-        const { machine } = view;
-        content = (
-            <ExerciseList
-                machine={machine}
-                exercises={exercises}
-                onSelect={handleSelectExercise}
-                onBack={() => {
-                    setView({ kind: "machines" });
-                }}
-            />
-        );
-    } else {
-        const { machine, exercise } = view;
+                return (
+                    <ExerciseList
+                        machine={machine}
+                        exercises={exercises}
+                        onSelect={handleSelectExercise}
+                        onBack={() => {
+                            setView({ kind: "machines" });
+                        }}
+                    />
+                );
+            }
+            default: {
+                const { machine, exercise } = view;
 
-        content = (
-            <ExerciseForm
-                machine={machine}
-                exercise={exercise}
-                onBack={() => {
-                    setView({ kind: "exercises", machine });
-                }}
-            />
-        );
-    }
+                return (
+                    <ExerciseForm
+                        machine={machine}
+                        exercise={exercise}
+                        onBack={() => {
+                            setView({ kind: "exercises", machine });
+                        }}
+                    />
+                );
+            }
+        }
+    };
 
-    return <div className="max-w-lg mx-auto">{content}</div>;
+    return <div className="max-w-lg mx-auto">{renderContent()}</div>;
 };
