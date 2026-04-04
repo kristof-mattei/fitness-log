@@ -23,11 +23,11 @@ export const App: React.FC = () => {
         void getMachines().then(setMachines);
     }, []);
 
-    const handleSelectMachine = (machine: Machine): void => {
-        void getExercises(machine.id).then((list) => {
-            setExercises(list);
-            setView({ kind: "exercises", machine });
-        });
+    const handleSelectMachine = async (machine: Machine): Promise<void> => {
+        const list = await getExercises(machine.id);
+
+        setExercises(list);
+        setView({ kind: "exercises", machine });
     };
 
     const handleSelectExercise = (exercise: Exercise): void => {
@@ -41,7 +41,14 @@ export const App: React.FC = () => {
     let content: React.ReactNode;
 
     if (view.kind === "machines") {
-        content = <MachineList machines={machines} onSelect={handleSelectMachine} />;
+        content = (
+            <MachineList
+                machines={machines}
+                onSelect={(machine) => {
+                    void handleSelectMachine(machine);
+                }}
+            />
+        );
     } else if (view.kind === "exercises") {
         const { machine } = view;
         content = (

@@ -14,7 +14,7 @@
         "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
         "lint:fix": "npm run lint --fix",
         "preview": "vite preview",
-        "format": "prettier --write .",
+        "format": "prettier --write . '!.local' '!.sqlx'",
         "deps:ci": "depcruise --config dependency-cruiser.config.mjs --output-type err front-end/src",
         "deps:graph": "depcruise --config dependency-cruiser.config.mjs --output-type dot front-end/src | dot -T svg > dependency-graph.svg",
         "deps:report": "depcruise --config dependency-cruiser.config.mjs --output-type err-html --output-to dependency-report.html front-end/src"
@@ -37,7 +37,9 @@
     "devDependencies": {
         "@codecov/vite-plugin": "1.9.1",
         "@eslint-community/eslint-plugin-eslint-comments": "4.7.1",
-        "@eslint/config-helpers": "0.5.3",
+        "@eslint/compat": "2.0.4",
+        "@eslint/config-helpers": "0.5.4",
+        "@eslint/core": "1.2.0",
         "@eslint/js": "10.0.1",
         "@rolldown/plugin-babel": "0.2.2",
         "@stylistic/eslint-plugin": "5.10.0",
@@ -81,8 +83,11 @@
     },
     "pnpm": {
         "overrides": {
-            "@codecov-plugin/vite>vite": "8.0.3",
+            "@codecov/vite-plugin>vite": "8.0.3",
             "undici": "8.0.2"
-        }
+        },
+        "ignoredBuiltDependencies": [
+            "unrs-resolver"
+        ]
     }
 }

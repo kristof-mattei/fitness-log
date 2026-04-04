@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: postgres:18.3@sha256:a9abf4275f9e99bff8e6aed712b3b7dfec9cac1341bba01c1ffdfce9ff9fc34a
+    ports:
+      - 15432:5432
+    env_file:
+      - .env
+    networks:
+      - postgres-network
+    volumes:
+      - ${PWD}/.local/db-data/:/var/lib/postgresql/
+
+  pgadmin:
+    image: dpage/pgadmin4:latest@sha256:ff557f69d9808085dc3554f56c1b06a36ac8cddabe4485212920b9604261abdb
+    ports:
+      - 15433:80
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+    networks:
+      - postgres-network
+    volumes:
+      - ${PWD}/.local/pgadmin-data/:/var/lib/pgadmin/
+    post_start:
+      - command: chown --recursive 5050:0 /var/lib/pgadmin/
+        user: root
+
+networks:
+  postgres-network:
+    driver: bridge
