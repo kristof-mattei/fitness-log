@@ -3,7 +3,7 @@
     "type": "module",
     "packageManager": "pnpm@10.33.0+sha512.10568bb4a6afb58c9eb3630da90cc9516417abebd3fabbe6739f0ae795728da1491e9db5a544c76ad8eb7570f5c4bb3d6c637b2cb41bfdcdb47fa823c8649319",
     "engines": {
-        "node": "24.14.1",
+        "node": "24.15.0",
         "pnpm": "10.33.0"
     },
     "scripts": {
@@ -35,6 +35,7 @@
         "socket.io-client": "4.8.3"
     },
     "devDependencies": {
+<<<<<<< HEAD
         "@codecov/vite-plugin": "2.0.1",
         "@eslint-community/eslint-plugin-eslint-comments": "4.7.1",
         "@eslint/compat": "2.0.5",
@@ -70,6 +71,10 @@
         "eslint-plugin-react-hooks": "7.0.1",
         "eslint-plugin-react-refresh": "0.5.2",
         "eslint-plugin-unicorn": "64.0.0",
+||||||| f84b9693
+        "prettier": "3.8.2",
+=======
+>>>>>>> upstream/main
         "prettier": "3.8.3",
         "prettier-plugin-sh": "0.18.1",
         "prettier-plugin-toml": "2.0.6",
