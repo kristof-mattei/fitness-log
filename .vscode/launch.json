@@ -26,7 +26,7 @@
             "cargo": {
                 "args": ["run", "--bin=fitness-log"]
             },
-            "args": [""],
+            "args": [],
             "env": {
                 "RUST_BACKTRACE": "1"
             },
