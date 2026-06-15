@@ -11,7 +11,9 @@ interface ExerciseFormProperties {
 }
 
 function formatTime(isoString: string): string {
-    return new Date(isoString).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    const date = new Date(isoString);
+
+    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 }
 
 export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exercise, onBack }) => {
@@ -101,7 +103,7 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
                             min={0}
                             value={lbs}
                             onChange={(event) => {
-                                const v = Number.parseInt(event.target.value, 10);
+                                const v = Number(event.target.value);
                                 setLbs(Number.isNaN(v) ? 0 : Math.max(0, v));
                             }}
                             className="w-24 border border-gray-300 rounded-lg px-3 py-2 text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -120,7 +122,7 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
                             min={0}
                             value={sets}
                             onChange={(event) => {
-                                const v = Number.parseInt(event.target.value, 10);
+                                const v = Number(event.target.value);
                                 setSets(Number.isNaN(v) ? 0 : Math.max(0, v));
                             }}
                             className="w-24 border border-gray-300 rounded-lg px-3 py-2 text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -139,7 +141,7 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
                             min={0}
                             value={reps}
                             onChange={(error) => {
-                                const v = Number.parseInt(error.target.value, 10);
+                                const v = Number(error.target.value);
                                 setReps(Number.isNaN(v) ? 0 : Math.max(0, v));
                             }}
                             className="w-24 border border-gray-300 rounded-lg px-3 py-2 text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"

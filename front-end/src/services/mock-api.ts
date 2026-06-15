@@ -90,13 +90,19 @@ export async function getExerciseMax(exerciseId: string): Promise<ExerciseMax | 
 
 // eslint-disable-next-line require-await, @typescript-eslint/require-await -- MOCK
 export async function getTodaysRecords(exerciseId: string): Promise<ExerciseRecord[]> {
-    const today = new Date().toDateString();
+    const now = new Date();
+    const today = now.toDateString();
+
     return getStoredRecords()
         .filter((r) => {
-            return r.exerciseId === exerciseId && new Date(r.timestamp).toDateString() === today;
+            const timestamp = new Date(r.timestamp);
+            return r.exerciseId === exerciseId && timestamp.toDateString() === today;
         })
         .sort((a, b) => {
-            return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+            const left = new Date(a.timestamp);
+            const right = new Date(b.timestamp);
+
+            return right.getTime() - left.getTime();
         });
 }
 
@@ -107,13 +113,15 @@ export async function recordExercise(
     sets: number,
     reps: number,
 ): Promise<ExerciseRecord> {
+    const now = new Date();
+
     const record: ExerciseRecord = {
         id: crypto.randomUUID(),
         exerciseId,
         lbs,
         sets,
         reps,
-        timestamp: new Date().toISOString(),
+        timestamp: now.toISOString(),
     };
     const records = getStoredRecords();
     records.push(record);
