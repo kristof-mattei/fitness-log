@@ -22,7 +22,7 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
     const [reps, setReps] = useState(0);
     const [max, setMax] = useState<ExerciseMax | null>(null);
     const [todaysRecords, setTodaysRecords] = useState<ExerciseRecord[]>([]);
-    const [saving, setSaving] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
     const [saveCount, setSaveCount] = useState(0);
 
     useEffect(() => {
@@ -61,11 +61,11 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
     }, [exercise.id]);
 
     const handleSave = async (): Promise<void> => {
-        if (lbs <= 0 || sets <= 0 || reps <= 0 || saving) {
+        if (lbs <= 0 || sets <= 0 || reps <= 0 || isSaving) {
             return;
         }
 
-        setSaving(true);
+        setIsSaving(true);
         await recordExercise(exercise.id, lbs, sets, reps);
 
         const [newMax, newToday] = await Promise.all([getExerciseMax(exercise.id), getTodaysRecords(exercise.id)]);
@@ -75,7 +75,7 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
         setSaveCount((n) => {
             return n + 1;
         });
-        setSaving(false);
+        setIsSaving(false);
     };
 
     const isValid = lbs > 0 && sets > 0 && reps > 0;
@@ -157,10 +157,10 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
                     onClick={() => {
                         void handleSave();
                     }}
-                    disabled={!isValid || saving}
+                    disabled={!isValid || isSaving}
                     className="mt-6 w-full bg-blue-600 text-white rounded-lg py-3 font-semibold hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                 >
-                    {saving ? "Saving…" : "Save"}
+                    {isSaving ? "Saving..." : "Save"}
                 </button>
 
                 {saveCount > 0 && (
