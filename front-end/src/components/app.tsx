@@ -21,7 +21,6 @@ export const App: React.FC = () => {
     const [exercises, setExercises] = useState<Exercise[]>([]);
 
     useEffect(() => {
-        // eslint-disable-next-line unicorn/prefer-await -- useEffect is not async
         void getMachines().then(setMachines);
     }, []);
 
