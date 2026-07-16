@@ -61,7 +61,7 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
     }, [exercise.id]);
 
     const handleSave = async (): Promise<void> => {
-        if (lbs <= 0 || sets <= 0 || reps <= 0 || isSaving) {
+        if (isSaving || lbs <= 0 || sets <= 0 || reps <= 0) {
             return;
         }
 
