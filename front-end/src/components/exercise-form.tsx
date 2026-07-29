@@ -29,28 +29,32 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
         const controller = new AbortController();
 
         void (async () => {
+            // eslint-disable-next-line @typescript-eslint/init-declarations -- initialized in try
+            let maxData: ExerciseMax | null;
+            // eslint-disable-next-line @typescript-eslint/init-declarations -- initialized in try
+            let todayData: ExerciseRecord[];
+
             try {
                 // Pass controller.signal to your fetch calls if they support it
-                const [maxData, todayData] = await Promise.all([
-                    getExerciseMax(exercise.id),
-                    getTodaysRecords(exercise.id),
-                ]);
-
-                if (!controller.signal.aborted) {
-                    setMax(maxData);
-                    setTodaysRecords(todayData);
-
-                    // Pre-fill with today's most recent values if exercise was done today
-                    const latest = todayData[0];
-                    if (latest !== undefined) {
-                        setLbs(latest.lbs);
-                        setSets(latest.sets);
-                        setReps(latest.reps);
-                    }
-                }
+                [maxData, todayData] = await Promise.all([getExerciseMax(exercise.id), getTodaysRecords(exercise.id)]);
             } catch (error: unknown) {
-                if (error instanceof Error && error.name !== "AbortError") {
+                if (Error.isError(error) && error.name !== "AbortError") {
                     throw error;
+                }
+
+                return;
+            }
+
+            if (!controller.signal.aborted) {
+                setMax(maxData);
+                setTodaysRecords(todayData);
+
+                // Pre-fill with today's most recent values if exercise was done today
+                const latest = todayData[0];
+                if (latest !== undefined) {
+                    setLbs(latest.lbs);
+                    setSets(latest.sets);
+                    setReps(latest.reps);
                 }
             }
         })();
@@ -68,10 +72,13 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
         setIsSaving(true);
         await recordExercise(exercise.id, lbs, sets, reps);
 
-        const [newMax, newToday] = await Promise.all([getExerciseMax(exercise.id), getTodaysRecords(exercise.id)]);
+        const [updatedMax, updatedToday] = await Promise.all([
+            getExerciseMax(exercise.id),
+            getTodaysRecords(exercise.id),
+        ]);
 
-        setMax(newMax);
-        setTodaysRecords(newToday);
+        setMax(updatedMax);
+        setTodaysRecords(updatedToday);
         setSaveCount((n) => {
             return n + 1;
         });
