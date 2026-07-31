@@ -36,7 +36,6 @@ nextest
 nvmrc
 pathbuf
 pgadmin
-pids
 postprocessors
 prereleased
 profraw
