@@ -1,3 +1,5 @@
+import { Temporal } from "temporal-polyfill";
+
 import type { Exercise, ExerciseMax, ExerciseRecord, Machine } from "../types/fitness";
 
 const MACHINES: Machine[] = [
@@ -90,19 +92,16 @@ export async function getExerciseMax(exerciseId: string): Promise<ExerciseMax | 
 
 // eslint-disable-next-line require-await, @typescript-eslint/require-await -- MOCK
 export async function getTodaysRecords(exerciseId: string): Promise<ExerciseRecord[]> {
-    const now = new Date();
-    const today = now.toDateString();
+    const timeZone = Temporal.Now.timeZoneId();
+    const today = Temporal.Now.plainDateISO();
 
     return getStoredRecords()
         .filter((r) => {
-            const timestamp = new Date(r.timestamp);
-            return r.exerciseId === exerciseId && timestamp.toDateString() === today;
+            const date = Temporal.Instant.from(r.timestamp).toZonedDateTimeISO(timeZone).toPlainDate();
+            return r.exerciseId === exerciseId && date.equals(today);
         })
         .sort((a, b) => {
-            const left = new Date(a.timestamp);
-            const right = new Date(b.timestamp);
-
-            return right.getTime() - left.getTime();
+            return Temporal.Instant.compare(b.timestamp, a.timestamp);
         });
 }
 
@@ -113,15 +112,13 @@ export async function recordExercise(
     sets: number,
     reps: number,
 ): Promise<ExerciseRecord> {
-    const now = new Date();
-
     const record: ExerciseRecord = {
         id: crypto.randomUUID(),
         exerciseId,
         lbs,
         sets,
         reps,
-        timestamp: now.toISOString(),
+        timestamp: Temporal.Now.instant().toString(),
     };
     const records = getStoredRecords();
     records.push(record);
