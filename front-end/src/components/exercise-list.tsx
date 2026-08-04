@@ -14,12 +14,15 @@ export const ExerciseList: React.FC<ExerciseListProperties> = ({ machine, exerci
         <div>
             <button
                 onClick={onBack}
-                className="flex items-center gap-1 text-blue-600 hover:text-blue-800 mb-4 text-sm font-medium"
+                className="
+                  mb-4 flex items-center gap-1 text-sm font-medium text-blue-600
+                  hover:text-blue-800
+                "
             >
                 ← Back to machines
             </button>
-            <h1 className="text-2xl font-bold text-gray-900 mb-1">{machine.name}</h1>
-            <p className="text-gray-500 text-sm mb-6">Select an exercise</p>
+            <h1 className="mb-1 text-2xl font-bold text-gray-900">{machine.name}</h1>
+            <p className="mb-6 text-sm text-gray-500">Select an exercise</p>
             <div className="flex flex-col gap-3">
                 {exercises.map((exercise) => {
                     return (
@@ -28,7 +31,13 @@ export const ExerciseList: React.FC<ExerciseListProperties> = ({ machine, exerci
                             onClick={() => {
                                 onSelect(exercise);
                             }}
-                            className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 text-left hover:border-blue-400 hover:shadow-md transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="
+                              rounded-xl border border-gray-200 bg-white p-4
+                              text-left shadow-sm transition-all duration-150
+                              hover:border-blue-400 hover:shadow-md
+                              focus:ring-2 focus:ring-blue-500
+                              focus:outline-none
+                            "
                         >
                             <span className="font-medium text-gray-800">{exercise.name}</span>
                         </button>

@@ -93,20 +93,33 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
         <div>
             <button
                 onClick={onBack}
-                className="flex items-center gap-1 text-blue-600 hover:text-blue-800 mb-4 text-sm font-medium"
+                className="
+                  mb-4 flex items-center gap-1 text-sm font-medium text-blue-600
+                  hover:text-blue-800
+                "
             >
                 ← Back to exercises
             </button>
 
-            <h1 className="text-2xl font-bold text-gray-900 mb-1">{exercise.name}</h1>
-            <p className="text-gray-500 text-sm mb-6">{machine.name}</p>
+            <h1 className="mb-1 text-2xl font-bold text-gray-900">{exercise.name}</h1>
+            <p className="mb-6 text-sm text-gray-500">{machine.name}</p>
 
             {/* Entry form */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+            <div
+                className="
+                  mb-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm
+                "
+            >
                 <div className="flex flex-col gap-5">
                     {/* Weight */}
                     <div className="flex items-center gap-3">
-                        <label className="w-16 text-sm font-medium text-gray-700 shrink-0">Weight</label>
+                        <label
+                            className="
+                              w-16 shrink-0 text-sm font-medium text-gray-700
+                            "
+                        >
+                            Weight
+                        </label>
                         <input
                             type="number"
                             min={0}
@@ -115,17 +128,33 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
                                 const v = Number(event.target.value);
                                 setLbs(Number.isNaN(v) ? 0 : Math.max(0, v));
                             }}
-                            className="w-24 border border-gray-300 rounded-lg px-3 py-2 text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="
+                              w-24 rounded-lg border border-gray-300 px-3 py-2
+                              text-center text-lg font-semibold
+                              focus:ring-2 focus:ring-blue-500
+                              focus:outline-none
+                            "
                         />
-                        <span className="text-sm text-gray-500 shrink-0">lbs</span>
-                        <span className="ml-auto text-xs text-gray-400 whitespace-nowrap shrink-0">
+                        <span className="shrink-0 text-sm text-gray-500">lbs</span>
+                        <span
+                            className="
+                              ml-auto shrink-0 text-xs whitespace-nowrap
+                              text-gray-400
+                            "
+                        >
                             Best: {max === null ? "—" : `${String(max.lbs)} lbs`}
                         </span>
                     </div>
 
                     {/* Sets */}
                     <div className="flex items-center gap-3">
-                        <label className="w-16 text-sm font-medium text-gray-700 shrink-0">Sets</label>
+                        <label
+                            className="
+                              w-16 shrink-0 text-sm font-medium text-gray-700
+                            "
+                        >
+                            Sets
+                        </label>
                         <input
                             type="number"
                             min={0}
@@ -134,17 +163,33 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
                                 const v = Number(event.target.value);
                                 setSets(Number.isNaN(v) ? 0 : Math.max(0, v));
                             }}
-                            className="w-24 border border-gray-300 rounded-lg px-3 py-2 text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="
+                              w-24 rounded-lg border border-gray-300 px-3 py-2
+                              text-center text-lg font-semibold
+                              focus:ring-2 focus:ring-blue-500
+                              focus:outline-none
+                            "
                         />
-                        <span className="text-sm text-gray-500 shrink-0">sets</span>
-                        <span className="ml-auto text-xs text-gray-400 whitespace-nowrap shrink-0">
+                        <span className="shrink-0 text-sm text-gray-500">sets</span>
+                        <span
+                            className="
+                              ml-auto shrink-0 text-xs whitespace-nowrap
+                              text-gray-400
+                            "
+                        >
                             Best: {max === null ? "—" : `${String(max.sets)} sets`}
                         </span>
                     </div>
 
                     {/* Reps */}
                     <div className="flex items-center gap-3">
-                        <label className="w-16 text-sm font-medium text-gray-700 shrink-0">Reps</label>
+                        <label
+                            className="
+                              w-16 shrink-0 text-sm font-medium text-gray-700
+                            "
+                        >
+                            Reps
+                        </label>
                         <input
                             type="number"
                             min={0}
@@ -153,10 +198,20 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
                                 const v = Number(error.target.value);
                                 setReps(Number.isNaN(v) ? 0 : Math.max(0, v));
                             }}
-                            className="w-24 border border-gray-300 rounded-lg px-3 py-2 text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="
+                              w-24 rounded-lg border border-gray-300 px-3 py-2
+                              text-center text-lg font-semibold
+                              focus:ring-2 focus:ring-blue-500
+                              focus:outline-none
+                            "
                         />
-                        <span className="text-sm text-gray-500 shrink-0">reps</span>
-                        <span className="ml-auto text-xs text-gray-400 whitespace-nowrap shrink-0">
+                        <span className="shrink-0 text-sm text-gray-500">reps</span>
+                        <span
+                            className="
+                              ml-auto shrink-0 text-xs whitespace-nowrap
+                              text-gray-400
+                            "
+                        >
                             Best: {max === null ? "—" : `${String(max.reps)} reps`}
                         </span>
                     </div>
@@ -167,13 +222,20 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
                         void handleSave();
                     }}
                     disabled={!isValid || isSaving}
-                    className="mt-6 w-full bg-blue-600 text-white rounded-lg py-3 font-semibold hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    className="
+                      mt-6 w-full rounded-lg bg-blue-600 py-3 font-semibold
+                      text-white transition-colors
+                      hover:bg-blue-700
+                      focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+                      focus:outline-none
+                      disabled:cursor-not-allowed disabled:opacity-40
+                    "
                 >
                     {isSaving ? "Saving..." : "Save"}
                 </button>
 
                 {saveCount > 0 && (
-                    <p className="text-center text-sm text-green-600 mt-3">
+                    <p className="mt-3 text-center text-sm text-green-600">
                         {saveCount} {saveCount === 1 ? "set" : "sets"} recorded today
                     </p>
                 )}
@@ -182,7 +244,12 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
             {/* Today's history */}
             {todaysRecords.length > 0 && (
                 <div>
-                    <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">
+                    <h2
+                        className="
+                          mb-3 text-xs font-semibold tracking-widest
+                          text-gray-400 uppercase
+                        "
+                    >
                         Today&apos;s sets
                     </h2>
                     <div className="flex flex-col gap-2">
@@ -190,18 +257,37 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
                             return (
                                 <div
                                     key={record.id}
-                                    className="bg-white rounded-lg border border-gray-200 px-4 py-3 flex items-center gap-3"
+                                    className="
+                                      flex items-center gap-3 rounded-lg border
+                                      border-gray-200 bg-white px-4 py-3
+                                    "
                                 >
-                                    <span className="text-xs text-gray-400 w-12 shrink-0">
+                                    <span
+                                        className="
+                                          w-12 shrink-0 text-xs text-gray-400
+                                        "
+                                    >
                                         {formatTime(record.timestamp)}
                                     </span>
-                                    <span className="font-semibold text-gray-800 text-sm">{record.lbs} lbs</span>
-                                    <span className="text-gray-400 text-sm">×</span>
-                                    <span className="text-gray-700 text-sm">{record.sets} sets</span>
-                                    <span className="text-gray-400 text-sm">×</span>
-                                    <span className="text-gray-700 text-sm">{record.reps} reps</span>
+                                    <span
+                                        className="
+                                          text-sm font-semibold text-gray-800
+                                        "
+                                    >
+                                        {record.lbs} lbs
+                                    </span>
+                                    <span className="text-sm text-gray-400">×</span>
+                                    <span className="text-sm text-gray-700">{record.sets} sets</span>
+                                    <span className="text-sm text-gray-400">×</span>
+                                    <span className="text-sm text-gray-700">{record.reps} reps</span>
                                     {index === 0 && (
-                                        <span className="ml-auto text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full shrink-0">
+                                        <span
+                                            className="
+                                              ml-auto shrink-0 rounded-full
+                                              bg-blue-50 px-2 py-0.5 text-xs
+                                              text-blue-600
+                                            "
+                                        >
                                             latest
                                         </span>
                                     )}
