@@ -1,6 +1,8 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 
+import { Temporal } from "temporal-polyfill";
+
 import { getExerciseMax, getTodaysRecords, recordExercise } from "../services/mock-api";
 import type { Exercise, ExerciseMax, ExerciseRecord, Machine } from "../types/fitness";
 
@@ -11,9 +13,9 @@ interface ExerciseFormProperties {
 }
 
 function formatTime(isoString: string): string {
-    const date = new Date(isoString);
+    const instant = Temporal.Instant.from(isoString);
 
-    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    return instant.toLocaleString([], { hour: "2-digit", minute: "2-digit" });
 }
 
 export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exercise, onBack }) => {
