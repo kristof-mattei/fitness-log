@@ -80,5 +80,5 @@ export const App: React.FC = () => {
         }
     };
 
-    return <div className="max-w-lg mx-auto">{renderContent()}</div>;
+    return <div className="mx-auto max-w-lg">{renderContent()}</div>;
 };

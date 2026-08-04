@@ -10,9 +10,14 @@ interface MachineListProperties {
 export const MachineList: React.FC<MachineListProperties> = ({ machines, onSelect }) => {
     return (
         <div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">Fitness Log</h1>
-            <p className="text-gray-500 text-sm mb-6">Select a machine to get started.</p>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+            <h1 className="mb-2 text-2xl font-bold text-gray-900">Fitness Log</h1>
+            <p className="mb-6 text-sm text-gray-500">Select a machine to get started.</p>
+            <div
+                className="
+                  grid grid-cols-2 gap-3
+                  sm:grid-cols-3
+                "
+            >
                 {machines.map((machine) => {
                     return (
                         <button
@@ -20,9 +25,15 @@ export const MachineList: React.FC<MachineListProperties> = ({ machines, onSelec
                             onClick={() => {
                                 onSelect(machine);
                             }}
-                            className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 text-left hover:border-blue-400 hover:shadow-md transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="
+                              rounded-xl border border-gray-200 bg-white p-5
+                              text-left shadow-sm transition-all duration-150
+                              hover:border-blue-400 hover:shadow-md
+                              focus:ring-2 focus:ring-blue-500
+                              focus:outline-none
+                            "
                         >
-                            <span className="font-semibold text-gray-800 text-sm">{machine.name}</span>
+                            <span className="text-sm font-semibold text-gray-800">{machine.name}</span>
                         </button>
                     );
                 })}
