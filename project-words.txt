@@ -5,9 +5,9 @@ archi
 ataylorme
 bkeepers
 buildcache
-Cinstrument
+cinstrument
 cocogitto
-Ctarget
+ctarget
 cttc
 cves
 dbname
@@ -23,7 +23,6 @@ healthz
 hubot
 idents
 jsons
-jsxdev
 kristof
 lcovonly
 lldb
@@ -43,8 +42,9 @@ prereleased
 profraw
 psql
 pushdown
-Retag
-Retagging
+pyflakes
+retag
+retagging
 rustflags
 samply
 sccache
@@ -53,9 +53,9 @@ skopeo
 startswith
 striptags
 taiki
-TARGETPLATFORMDASH
+targetplatformdash
 telem
-Tera
+tera
 topo
 trixie
 uninlined
