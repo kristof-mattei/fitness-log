@@ -32,10 +32,12 @@ mimalloc
 monomorphization
 multiplatform
 mypy
+netsh
 nextest
 nvmrc
 pathbuf
 pgadmin
+portproxy
 postprocessors
 prereleased
 profraw
