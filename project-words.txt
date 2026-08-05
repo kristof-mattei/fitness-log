@@ -61,7 +61,9 @@ trixie
 uninlined
 unrs
 unseparated
+unstub
 usernamehw
 vadimcn
+venv
 vite
 Vitest
