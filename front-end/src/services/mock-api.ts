@@ -51,19 +51,19 @@ function persistRecords(records: ExerciseRecord[]): void {
     localStorage.setItem(RECORDS_KEY, JSON.stringify(records));
 }
 
-// eslint-disable-next-line require-await, @typescript-eslint/require-await -- MOCK
+// eslint-disable-next-line @typescript-eslint/require-await -- MOCK
 export async function getMachines(): Promise<Machine[]> {
     return [...MACHINES];
 }
 
-// eslint-disable-next-line require-await, @typescript-eslint/require-await -- MOCK
+// eslint-disable-next-line @typescript-eslint/require-await -- MOCK
 export async function getExercises(machineId: string): Promise<Exercise[]> {
     return EXERCISES.filter((exercise) => {
         return exercise.machineId === machineId;
     });
 }
 
-// eslint-disable-next-line require-await, @typescript-eslint/require-await -- MOCK
+// eslint-disable-next-line @typescript-eslint/require-await -- MOCK
 export async function getExerciseMax(exerciseId: string): Promise<ExerciseMax | null> {
     const records = getStoredRecords().filter((r) => {
         return r.exerciseId === exerciseId;
@@ -90,7 +90,7 @@ export async function getExerciseMax(exerciseId: string): Promise<ExerciseMax | 
     };
 }
 
-// eslint-disable-next-line require-await, @typescript-eslint/require-await -- MOCK
+// eslint-disable-next-line @typescript-eslint/require-await -- MOCK
 export async function getTodaysRecords(exerciseId: string): Promise<ExerciseRecord[]> {
     const timeZone = Temporal.Now.timeZoneId();
     const today = Temporal.Now.plainDateISO();
@@ -105,7 +105,7 @@ export async function getTodaysRecords(exerciseId: string): Promise<ExerciseReco
         });
 }
 
-// eslint-disable-next-line require-await, @typescript-eslint/require-await -- MOCK
+// eslint-disable-next-line @typescript-eslint/require-await -- MOCK
 export async function recordExercise(
     exerciseId: string,
     lbs: number,
