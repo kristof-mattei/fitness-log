@@ -97,11 +97,11 @@ jobs:
       rust: ${{ steps.filter.outputs.rust }}
       typescript: ${{ steps.filter.outputs.typescript }}
     steps:
-      - &checkout
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          persist-credentials: false
+          # on push events dorny/paths-filter diffs against github.event.before over git and fetches it with the persisted credentials
+          persist-credentials: true
           show-progress: false
 
       - name: Check if we actually made changes
@@ -175,7 +175,12 @@ jobs:
       - calculate-version
     if: fromJSON(needs.repo-has-container.outputs.has_container) == true
     steps:
-      - *checkout
+      - &checkout
+        name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          show-progress: false
 
       - name: Install cargo-edit to do set-version
         uses: taiki-e/install-action@5b4d68e2e660441203ab128a23676f1e4faf1532 # v2.86.3
@@ -251,7 +256,7 @@ jobs:
       matrix:
         runs-on:
           - "ubuntu-26.04"
-          - "ubuntu-24.04-arm"
+          - "ubuntu-26.04-arm"
         platform: ${{ fromJSON(needs.architectures.outputs.architectures) }}
     runs-on: ${{ matrix.runs-on }}
     permissions:
@@ -311,7 +316,7 @@ jobs:
             }
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4.2.0
+        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4.3.0
 
       - name: Log into registry ${{ needs.docker-prepare-variables.outputs.registry }}
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
@@ -422,7 +427,7 @@ jobs:
             }
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4.2.0
+        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4.3.0
 
       - name: Log into registry ${{ needs.docker-prepare-variables.outputs.registry }}
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
@@ -587,7 +592,7 @@ jobs:
             }
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4.2.0
+        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4.3.0
 
       - name: Log into registry ${{ needs.docker-prepare-variables.outputs.registry }}
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
