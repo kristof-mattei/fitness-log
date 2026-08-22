@@ -6,12 +6,8 @@
 /node_modules
 /reports
 /target
-<<<<<<< HEAD
 /tsconfig.tsbuildinfo
-||||||| 379dc7ee
-=======
 /version-bump.patch
->>>>>>> upstream/main
 
 # emitted per-crate
 profiling/

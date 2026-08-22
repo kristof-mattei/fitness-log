@@ -38,12 +38,19 @@ const EXERCISES: Exercise[] = [
 
 const RECORDS_KEY = "fitness_records";
 
+interface RecordExerciseInput {
+    exerciseId: string;
+    lbs: number;
+    reps: number;
+    sets: number;
+}
+
 function getStoredRecords(): ExerciseRecord[] {
     const raw = localStorage.getItem(RECORDS_KEY);
     if (raw === null) {
         return [];
     }
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- API is trusted
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- API is trusted
     return JSON.parse(raw) as ExerciseRecord[];
 }
 
@@ -51,74 +58,66 @@ function persistRecords(records: ExerciseRecord[]): void {
     localStorage.setItem(RECORDS_KEY, JSON.stringify(records));
 }
 
-// eslint-disable-next-line @typescript-eslint/require-await -- MOCK
+// oxlint-disable-next-line typescript/require-await -- MOCK
 export async function getMachines(): Promise<Machine[]> {
     return [...MACHINES];
 }
 
-// eslint-disable-next-line @typescript-eslint/require-await -- MOCK
+// oxlint-disable-next-line typescript/require-await -- MOCK
 export async function getExercises(machineId: string): Promise<Exercise[]> {
     return EXERCISES.filter((exercise) => {
         return exercise.machineId === machineId;
     });
 }
 
-// eslint-disable-next-line @typescript-eslint/require-await -- MOCK
+// oxlint-disable-next-line typescript/require-await -- MOCK
 export async function getExerciseMax(exerciseId: string): Promise<ExerciseMax | null> {
-    const records = getStoredRecords().filter((r) => {
-        return r.exerciseId === exerciseId;
+    const records = getStoredRecords().filter((record) => {
+        return record.exerciseId === exerciseId;
     });
     if (records.length === 0) {
         return null;
     }
     return {
         lbs: Math.max(
-            ...records.map((r) => {
-                return r.lbs;
+            ...records.map((record) => {
+                return record.lbs;
             }),
         ),
         sets: Math.max(
-            ...records.map((r) => {
-                return r.sets;
+            ...records.map((record) => {
+                return record.sets;
             }),
         ),
         reps: Math.max(
-            ...records.map((r) => {
-                return r.reps;
+            ...records.map((record) => {
+                return record.reps;
             }),
         ),
     };
 }
 
-// eslint-disable-next-line @typescript-eslint/require-await -- MOCK
+// oxlint-disable-next-line typescript/require-await -- MOCK
 export async function getTodaysRecords(exerciseId: string): Promise<ExerciseRecord[]> {
     const timeZone = Temporal.Now.timeZoneId();
     const today = Temporal.Now.plainDateISO();
 
     return getStoredRecords()
-        .filter((r) => {
-            const date = Temporal.Instant.from(r.timestamp).toZonedDateTimeISO(timeZone).toPlainDate();
-            return r.exerciseId === exerciseId && date.equals(today);
+        .filter((record) => {
+            const date = Temporal.Instant.from(record.timestamp).toZonedDateTimeISO(timeZone).toPlainDate();
+            return record.exerciseId === exerciseId && date.equals(today);
         })
-        .sort((a, b) => {
-            return Temporal.Instant.compare(b.timestamp, a.timestamp);
+        .sort((first, second) => {
+            return Temporal.Instant.compare(second.timestamp, first.timestamp);
         });
 }
 
-// eslint-disable-next-line @typescript-eslint/require-await -- MOCK
-export async function recordExercise(
-    exerciseId: string,
-    lbs: number,
-    sets: number,
-    reps: number,
-): Promise<ExerciseRecord> {
+// oxlint-disable-next-line typescript/require-await -- MOCK
+export async function recordExercise(input: RecordExerciseInput): Promise<ExerciseRecord> {
     const record: ExerciseRecord = {
         id: crypto.randomUUID(),
-        exerciseId,
-        lbs,
-        sets,
-        reps,
         timestamp: Temporal.Now.instant().toString(),
+        ...input,
     };
     const records = getStoredRecords();
     records.push(record);

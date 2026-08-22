@@ -10,16 +10,16 @@ export interface Exercise {
 }
 
 export interface ExerciseRecord {
-    id: string;
     exerciseId: string;
+    id: string;
     lbs: number;
-    sets: number;
     reps: number;
+    sets: number;
     timestamp: string;
 }
 
 export interface ExerciseMax {
     lbs: number;
-    sets: number;
     reps: number;
+    sets: number;
 }
