@@ -45,7 +45,7 @@ const configFunction: ViteUserConfigFn = defineConfig(({ mode }) => {
             svgr(),
             react(),
             babel({
-                presets: [reactCompilerPreset()],
+                presets: [reactCompilerPreset({ panicThreshold: "all_errors" })],
             }),
             checker({ typescript: true }),
             tailwindcss(),
