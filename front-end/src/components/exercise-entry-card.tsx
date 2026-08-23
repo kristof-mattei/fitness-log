@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import type React from "react";
 
 import type { ExerciseMax } from "../types/fitness";
@@ -29,10 +28,6 @@ export const ExerciseEntryCard: React.FC<ExerciseEntryCardProperties> = ({
     saveCount,
     sets,
 }) => {
-    const handleSaveClick = useCallback((): void => {
-        void onSave();
-    }, [onSave]);
-
     const isValid = lbs > 0 && sets > 0 && reps > 0;
 
     return (
@@ -64,7 +59,9 @@ export const ExerciseEntryCard: React.FC<ExerciseEntryCardProperties> = ({
             <button
                 className="mbs-6 rounded-lg bg-blue-600 py-3 font-semibold text-white transition-colors inline-full hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-40"
                 disabled={!isValid || isSaving}
-                onClick={handleSaveClick}
+                onClick={() => {
+                    void onSave();
+                }}
                 type="button"
             >
                 {isSaving ? "Saving..." : "Save"}

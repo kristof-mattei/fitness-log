@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { FC, ReactElement } from "react";
 
 import { getExercises, getMachines } from "../services/mock-api";
@@ -25,58 +25,61 @@ export const App: FC = () => {
         void load();
     }, []);
 
-    const handleSelectMachine = useCallback((machine: Machine): void => {
-        const load = async (): Promise<void> => {
-            setExercises(await getExercises(machine.id));
-            setView({ kind: "exercises", machine });
-        };
+    const handleSelectMachine = async (machine: Machine): Promise<void> => {
+        const list = await getExercises(machine.id);
 
-        void load();
-    }, []);
+        setExercises(list);
+        setView({ kind: "exercises", machine });
+    };
 
-    const handleSelectExercise = useCallback((exercise: Exercise): void => {
-        setView((current) => {
-            if (current.kind !== "exercises") {
-                return current;
-            }
-            return { exercise, kind: "form", machine: current.machine };
-        });
-    }, []);
+    const handleSelectExercise = (exercise: Exercise): void => {
+        if (view.kind !== "exercises") {
+            return;
+        }
 
-    const handleBackToMachines = useCallback((): void => {
-        setView({ kind: "machines" });
-    }, []);
-
-    const handleBackToExercises = useCallback((): void => {
-        setView((current) => {
-            if (current.kind !== "form") {
-                return current;
-            }
-            return { kind: "exercises", machine: current.machine };
-        });
-    }, []);
+        setView({ exercise, kind: "form", machine: view.machine });
+    };
 
     const renderContent = (): ReactElement => {
-        if (view.kind === "machines") {
-            return <MachineList machines={machines} onSelect={handleSelectMachine} />;
+        switch (view.kind) {
+            case "machines": {
+                return (
+                    <MachineList
+                        machines={machines}
+                        onSelect={(machine) => {
+                            void handleSelectMachine(machine);
+                        }}
+                    />
+                );
+            }
+            case "exercises": {
+                const { machine } = view;
+
+                return (
+                    <ExerciseList
+                        exercises={exercises}
+                        machine={machine}
+                        onBack={() => {
+                            setView({ kind: "machines" });
+                        }}
+                        onSelect={handleSelectExercise}
+                    />
+                );
+            }
+            case "form": {
+                const { machine, exercise } = view;
+
+                return (
+                    <ExerciseForm
+                        exercise={exercise}
+                        machine={machine}
+                        onBack={() => {
+                            setView({ kind: "exercises", machine });
+                        }}
+                    />
+                );
+            }
         }
-
-        if (view.kind === "exercises") {
-            const { machine } = view;
-
-            return (
-                <ExerciseList
-                    exercises={exercises}
-                    machine={machine}
-                    onBack={handleBackToMachines}
-                    onSelect={handleSelectExercise}
-                />
-            );
-        }
-
-        const { machine, exercise } = view;
-
-        return <ExerciseForm exercise={exercise} machine={machine} onBack={handleBackToExercises} />;
     };
 
     return <div className="mx-auto max-inline-lg">{renderContent()}</div>;

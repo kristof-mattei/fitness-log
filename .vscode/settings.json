@@ -41,7 +41,8 @@
     },
     "debug.internalConsoleOptions": "neverOpen",
     "files.associations": {
-        "*.css": "tailwindcss"
+        "*.css": "tailwindcss",
+        ".oxlintrc.json": "jsonc"
     },
     "js/ts.preferences.importModuleSpecifier": "relative",
     "js/ts.preferences.importModuleSpecifierEnding": "minimal",

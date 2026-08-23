@@ -54,8 +54,7 @@
         "reports/",
         "target/",
         ".local/",
-        ".pnpm-store/",
-        ".venv/"
+        ".pnpm-store/"
     ],
     "rules": {
         "arrow-body-style": ["error", "always"],
@@ -68,14 +67,20 @@
         "id-length": ["error", { "exceptions": ["x", "y"] }],
         "max-lines": "off",
         "max-lines-per-function": "off",
+        "max-params": ["error", { "max": 4 }],
         "max-statements": "off",
         "no-alert": "error",
         "no-console": "off",
         "no-duplicate-imports": ["error", { "allowSeparateTypeImports": true }],
         "no-inline-comments": "off",
+        // tsc reports redeclarations (ts2451); this rule also flags a type and a value sharing a name, which TypeScript allows
+        "no-redeclare": "off",
         "no-ternary": "off",
         "no-undefined": "off",
+        "no-warning-comments": "off",
         "one-var": ["error", "never"],
+        // destructuring a later array index needs a hole in the pattern (`const [, second] = ...`)
+        "prefer-destructuring": ["error", { "array": false, "object": true }],
         "require-await": "off",
         "sort-imports": ["error", { "ignoreDeclarationSort": true }],
         "sort-keys": "off",
@@ -126,7 +131,7 @@
         "import/no-default-export": "off",
         "import/no-named-export": "off",
         "import/no-relative-parent-imports": "off",
-        "import/no-unassigned-import": "error",
+        "import/no-unassigned-import": ["error", { "allow": ["**/*.css"] }],
         "import/prefer-default-export": "off",
         "import/unambiguous": "off",
 
@@ -135,6 +140,11 @@
         "n/no-callback-literal": "error",
         "n/no-deprecated-api": "error",
 
+        "node/no-process-env": "error",
+        "node/no-top-level-await": ["error", { "ignoreBin": true }],
+
+        // tsc's noImplicitReturns covers this and understands exhaustive switches
+        "typescript/consistent-return": "off",
         "typescript/consistent-type-imports": [
             "error",
             {
@@ -213,8 +223,14 @@
             }
         ],
         "react/jsx-filename-extension": ["error", { "extensions": [".tsx"] }],
+        "react/jsx-max-depth": "off",
         "react/jsx-no-literals": "off",
         "react/react-in-jsx-scope": "off",
+
+        // React Compiler is enabled, it memoizes inline props
+        "react-perf/jsx-no-new-array-as-prop": "off",
+        "react-perf/jsx-no-new-function-as-prop": "off",
+        "react-perf/jsx-no-new-object-as-prop": "off",
 
         "better-tailwindcss/enforce-canonical-classes": "error",
         "better-tailwindcss/enforce-consistent-important-position": "error",
@@ -246,18 +262,7 @@
     },
     "overrides": [
         {
-            "files": ["**/*.js", "**/*.cjs", "**/*.mjs"],
-            "rules": {
-                "no-restricted-imports": [
-                    "error",
-                    {
-                        "patterns": [".*"]
-                    }
-                ]
-            }
-        },
-        {
-            "files": ["*.config.ts", "*.config.mjs", "**/test.setup.ts"],
+            "files": ["*.config.ts", "**/test.setup.ts"],
             "env": {
                 "node": true
             },

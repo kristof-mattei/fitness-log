@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type React from "react";
 
 import { getExerciseMax, getTodaysRecords, recordExercise } from "../services/mock-api";
@@ -34,6 +34,9 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
     const [saveCount, setSaveCount] = useState(0);
 
     useEffect(() => {
+        // TODO: the mock API accepts no AbortSignal, so this controller cancels nothing. The `aborted` check below
+        // only suppresses a post-unmount setState, and the AbortError branch in `loadExerciseData` stays unreachable
+        // until the signal is passed through.
         const controller = new AbortController();
 
         const load = async (): Promise<void> => {
@@ -49,7 +52,7 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
             setTodaysRecords(todayData);
 
             // Pre-fill with today's most recent values if exercise was done today
-            const [latest] = todayData;
+            const latest = todayData[0];
 
             if (latest !== undefined) {
                 setLbs(latest.lbs);
@@ -65,7 +68,7 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
         };
     }, [exercise.id]);
 
-    const handleSave = useCallback(async (): Promise<void> => {
+    const handleSave = async (): Promise<void> => {
         if (isSaving || lbs <= 0 || sets <= 0 || reps <= 0) {
             return;
         }
@@ -84,7 +87,7 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
             return count + 1;
         });
         setIsSaving(false);
-    }, [exercise.id, isSaving, lbs, reps, sets]);
+    };
 
     return (
         <div>

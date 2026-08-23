@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import type React from "react";
 
 interface NumberInputRowProperties {
@@ -10,14 +9,11 @@ interface NumberInputRowProperties {
 }
 
 export const NumberInputRow: React.FC<NumberInputRowProperties> = ({ best, label, onValueChange, unit, value }) => {
-    const handleChange = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>): void => {
-            const parsed = Number(event.target.value);
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        const parsed = Number(event.target.value);
 
-            onValueChange(Number.isNaN(parsed) ? 0 : Math.max(0, parsed));
-        },
-        [onValueChange],
-    );
+        onValueChange(Number.isNaN(parsed) ? 0 : Math.max(0, parsed));
+    };
 
     return (
         <div className="flex items-center gap-3">
