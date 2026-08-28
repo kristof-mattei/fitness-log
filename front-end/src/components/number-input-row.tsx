@@ -30,7 +30,7 @@ export const NumberInputRow: React.FC<NumberInputRowProperties> = ({ best, label
             />
             <span className="shrink-0 text-sm text-gray-500">{unit}</span>
             <span className="ms-auto shrink-0 text-xs whitespace-nowrap text-gray-400">
-                Best: {best === null ? "—" : `${best} ${unit}`}
+                Best: {best === null ? "—" : `${String(best)} ${unit}`}
             </span>
         </div>
     );
