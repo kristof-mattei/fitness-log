@@ -107,7 +107,7 @@ export async function getTodaysRecords(exerciseId: string): Promise<ExerciseReco
             const date = Temporal.Instant.from(record.timestamp).toZonedDateTimeISO(timeZone).toPlainDate();
             return record.exerciseId === exerciseId && date.equals(today);
         })
-        .sort((first, second) => {
+        .toSorted((first, second) => {
             return Temporal.Instant.compare(second.timestamp, first.timestamp);
         });
 }
