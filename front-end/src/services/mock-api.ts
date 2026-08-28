@@ -58,19 +58,16 @@ function persistRecords(records: ExerciseRecord[]): void {
     localStorage.setItem(RECORDS_KEY, JSON.stringify(records));
 }
 
-// oxlint-disable-next-line typescript/require-await -- MOCK
 export async function getMachines(): Promise<Machine[]> {
     return [...MACHINES];
 }
 
-// oxlint-disable-next-line typescript/require-await -- MOCK
 export async function getExercises(machineId: string): Promise<Exercise[]> {
     return EXERCISES.filter((exercise) => {
         return exercise.machineId === machineId;
     });
 }
 
-// oxlint-disable-next-line typescript/require-await -- MOCK
 export async function getExerciseMax(exerciseId: string): Promise<ExerciseMax | null> {
     const records = getStoredRecords().filter((record) => {
         return record.exerciseId === exerciseId;
@@ -97,7 +94,6 @@ export async function getExerciseMax(exerciseId: string): Promise<ExerciseMax | 
     };
 }
 
-// oxlint-disable-next-line typescript/require-await -- MOCK
 export async function getTodaysRecords(exerciseId: string): Promise<ExerciseRecord[]> {
     const timeZone = Temporal.Now.timeZoneId();
     const today = Temporal.Now.plainDateISO();
@@ -112,7 +108,6 @@ export async function getTodaysRecords(exerciseId: string): Promise<ExerciseReco
         });
 }
 
-// oxlint-disable-next-line typescript/require-await -- MOCK
 export async function recordExercise(input: RecordExerciseInput): Promise<ExerciseRecord> {
     const record: ExerciseRecord = {
         id: crypto.randomUUID(),
