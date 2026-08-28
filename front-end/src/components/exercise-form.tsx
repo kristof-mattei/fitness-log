@@ -34,7 +34,6 @@ export const ExerciseForm: React.FC<ExerciseFormProperties> = ({ machine, exerci
     const [saveCount, setSaveCount] = useState(0);
 
     useEffect(() => {
-        // oxlint-disable-next-line no-warning-comments -- it's a true TODO
         // TODO: the mock API accepts no AbortSignal, so this controller cancels nothing. The `aborted` check below
         // only suppresses a post-unmount setState, and the AbortError branch in `loadExerciseData` stays unreachable
         // until the signal is passed through.
