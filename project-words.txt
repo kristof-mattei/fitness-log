@@ -1,4 +1,3 @@
-adduser
 appgroup
 appuser
 archi
@@ -6,6 +5,7 @@ artipacked
 bkeepers
 buildcache
 cinstrument
+cliffignore
 ctarget
 cttc
 cves
@@ -38,6 +38,7 @@ profraw
 psql
 pushdown
 pyflakes
+rawfile
 retag
 retagging
 rhysd
@@ -48,6 +49,7 @@ setvalue
 sigerm
 skopeo
 skopeo's
+slurpfile
 startswith
 striptags
 taiki
