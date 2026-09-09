@@ -5,7 +5,7 @@ docker:
   - *shared
   - ".dockerignore"
   - Dockerfile
-rust:
+rust: &rust
   - *shared
   - "**/*.toml"
   - ".cargo/**"
@@ -19,3 +19,8 @@ typescript:
   - "pnpm-lock.yaml"
   - "pnpm-workspace.yaml"
   - "tsconfig.json"
+# the package installs both files, see `license-file` and `assets` in `[package.metadata.deb]`
+deb:
+  - *rust
+  - LICENSE
+  - README.md

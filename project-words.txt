@@ -25,6 +25,7 @@ idents
 jsons
 kristof
 lcovonly
+lintian
 mattei
 mimalloc
 monomorphization
