@@ -1,3 +1,4 @@
+allgreen
 appgroup
 appuser
 archi
@@ -19,8 +20,8 @@ eosql
 errorlens
 formstate
 grcov
+headgreen
 healthz
-hubot
 idents
 jsons
 kristof
