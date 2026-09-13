@@ -1,4 +1,9 @@
 <!-- header goes here -->
+## [0.0.2](https://github.com/kristof-mattei/fitness-log/compare/v0.0.1..v0.0.2) - 2026-09-13
+
+### 💼 Other
+
+- Name the entrypoint binary after the application by [@kristof-mattei](https://github.com/kristof-mattei) ([`31126fc`](https://github.com/kristof-mattei/fitness-log/commit/31126fc1e47b47022d7fd6f7a190cde21ccd93b5))
 ## [0.0.1] - 2026-09-10
 
 ### 🚀 Features
