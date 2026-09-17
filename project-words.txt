@@ -9,7 +9,6 @@ cinstrument
 cliffignore
 ctarget
 cttc
-cves
 dbname
 depcruise
 dorny
@@ -37,7 +36,6 @@ pathbuf
 pgadmin
 pkgs
 postprocessors
-prereleased
 profraw
 psql
 pushdown
