@@ -28,6 +28,7 @@ lcovonly
 lintian
 mattei
 mimalloc
+mkhl
 monomorphization
 multiplatform
 nextest
